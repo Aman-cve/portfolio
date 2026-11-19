@@ -744,8 +744,10 @@
     composer.addPass(new OutputPass());
 
     function resize() {
-      W = canvas.clientWidth || window.innerWidth;
-      H = canvas.clientHeight || window.innerHeight;
+      /* A tab opened in the background can report a zero-size window; never size targets to 0 */
+      W = Math.max(2, canvas.clientWidth || window.innerWidth || 2);
+      H = Math.max(2, canvas.clientHeight || window.innerHeight || 2);
+      sized = W > 2 && H > 2;
       aspect = W / H;
       renderer.setPixelRatio(DPR);
       renderer.setSize(W, H, false);
@@ -795,7 +797,7 @@
     /* Input */
     var mouseT = { x: 0, y: 0 }, mouse = { x: 0, y: 0 }, hasMouse = false, moveEnergy = 0;
     var ndc = new THREE.Vector2(), raycaster = new THREE.Raycaster(), sphere = new THREE.Sphere(), hitV = new THREE.Vector3(), hitL = new THREE.Vector3(0, 0, 1);
-    var hover = 0, hoverT = 0, pulse = 0, loadedAt = -1, SK = 120, SD = 12;
+    var hover = 0, hoverT = 0, pulse = 0, loadedAt = -1, SK = 120, SD = 12, sized = false;
     var planeN = new THREE.Vector3(), wPlane = new THREE.Plane(), tmpV = new THREE.Vector3();
     function kick(amount) {
       pulse = Math.max(pulse, amount);
@@ -855,6 +857,7 @@
     function frame(now) {
       requestAnimationFrame(frame);
       if (document.hidden) { last = now; return; }
+      if (!sized) { resize(); if (!sized) { last = now; return; } }
       var sy = window.scrollY || 0;
       if (reduce && !needs && sy === lastSy) { last = now; return; }
       needs = false;
@@ -1019,6 +1022,9 @@
     }
 
     window.addEventListener('resize', resize);
+    if ('ResizeObserver' in window) new ResizeObserver(function () {
+      if (canvas.clientWidth !== W || canvas.clientHeight !== H) resize();
+    }).observe(canvas);
     window.addEventListener('scroll', function () { needs = true; }, { passive: true });
     resize();
     ready(true);

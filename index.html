@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AmanCve — LLM Evaluation &amp; Backend Engineer</title>
+<meta name="description" content="Aman — Computer Science student at Chandigarh University. LLM quality and evaluation, backend systems at scale, and the Nyaru platform used by 1.8M+ people.">
+<meta name="theme-color" content="#0c0a0a">
+<script>document.documentElement.className += ' js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Live WebGL scene (scene.js). Sits behind everything; the page still works without it. -->
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__mark">AMANCVE<span>.</span></div>
+  <div class="loader__bar"><i id="loaderBar"></i></div>
+  <div class="loader__pct"><span id="loaderPct">0</span>%</div>
+</div>
+
+<a class="skip" href="#work">Skip to work</a>
+
+<header class="nav" id="top">
+  <a class="nav__logo" href="#top">AMANCVE<span class="dot">.</span></a>
+  <nav class="nav__links" aria-label="Sections">
+    <a href="#work">Work</a>
+    <a href="#services">What I do</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="btn btn--ghost nav__cta" href="#contact">Let's talk</a>
+  <button class="nav__burger" id="burger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu" hidden aria-label="Sections">
+  <a href="#work">Work</a>
+  <a href="#services">What I do</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero__pointers" aria-hidden="true">
+    <div class="pointer" style="--x:44%;--y:14%"><svg viewBox="0 0 24 24"><path d="M5.5 3.2 5.5 19.5 9.6 15.9 12.3 22 15 20.8 12.4 14.9 18 14.5Z"/></svg><span>rubric</span></div>
+    <div class="pointer" style="--x:62%;--y:30%"><svg viewBox="0 0 24 24"><path d="M5.5 3.2 5.5 19.5 9.6 15.9 12.3 22 15 20.8 12.4 14.9 18 14.5Z"/></svg><span>eval</span></div>
+    <div class="pointer" style="--x:40%;--y:76%"><svg viewBox="0 0 24 24"><path d="M5.5 3.2 5.5 19.5 9.6 15.9 12.3 22 15 20.8 12.4 14.9 18 14.5Z"/></svg><span>prompt</span></div>
+    <div class="pointer" style="--x:78%;--y:72%"><svg viewBox="0 0 24 24"><path d="M5.5 3.2 5.5 19.5 9.6 15.9 12.3 22 15 20.8 12.4 14.9 18 14.5Z"/></svg><span>rank</span></div>
+    <div class="pointer pointer--plain" style="--x:88%;--y:20%"><svg viewBox="0 0 24 24"><path d="M5.5 3.2 5.5 19.5 9.6 15.9 12.3 22 15 20.8 12.4 14.9 18 14.5Z"/></svg></div>
+    <div class="pointer pointer--plain" style="--x:52%;--y:54%"><svg viewBox="0 0 24 24"><path d="M5.5 3.2 5.5 19.5 9.6 15.9 12.3 22 15 20.8 12.4 14.9 18 14.5Z"/></svg></div>
+  </div>
+
+  <div class="hero__inner wrap">
+    <div class="hero__intro">
+      <!-- Tilts in 3D with the cursor; each child sits at its own depth -->
+      <div class="hero__intro3d" id="intro3d">
+      <p class="hero__hello">Hello, I'm</p>
+      <h1 class="hero__name"><span>AMANCVE.</span></h1>
+      <p class="hero__role">LLM Evaluation &middot; Backend &amp; Systems</p>
+      <p class="hero__bio">Computer Science student at Chandigarh University. I evaluate and improve large language models, and build backends that hold up at scale, including a Discord platform that grew to 1.8M+ users.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#work" data-cursor="go">See my work</a>
+        <a class="btn btn--ghost" href="#about" data-cursor="read">More about me</a>
+      </div>
+      </div>
+    </div>
+
+    <div class="hero__mark">
+      <!-- With WebGL on, this wordmark is drawn in 3D at exactly this spot; the text here is the fallback. -->
+      <div class="hero__word" aria-hidden="true"><span>PORT</span><span>FOLIO</span></div>
+      <!-- Optional: a cut-out photo standing in front of the wordmark.
+           <img class="hero__photo" src="assets/photo.png" alt="" width="900" height="1200"> -->
+      <dl class="hero__stats">
+        <div><dt>Users on Nyaru</dt><dd><span class="count" data-count="1.8" data-decimals="1">1.8</span><i>M+</i></dd></div>
+        <div><dt>LeetCode problems solved</dt><dd><span class="count" data-count="950">950</span><i>+</i></dd></div>
+        <div><dt>LLM apps refined</dt><dd><span class="count" data-count="90">90</span><i>+</i></dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="hero__foot wrap">
+    <span class="scroll-cue" aria-hidden="true"><i></i>Scroll</span>
+    <div class="core-switch" role="group" aria-label="Core material">
+      <span aria-hidden="true">Core</span>
+      <button type="button" data-core="molten" aria-pressed="true">Molten</button>
+      <button type="button" data-core="glass" aria-pressed="false">Glass</button>
+      <button type="button" data-core="chrome" aria-pressed="false">Chrome</button>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" id="marquee" aria-hidden="true">
+  <div class="marquee__row">
+    <div class="marquee__track">
+      <span>Python</span><span class="dot">&bull;</span>
+      <span>TypeScript</span><span class="dot">&bull;</span>
+      <span>C / C++</span><span class="dot">&bull;</span>
+      <span>FastAPI</span><span class="dot">&bull;</span>
+      <span>Node.js</span><span class="dot">&bull;</span>
+      <span>PostgreSQL</span><span class="dot">&bull;</span>
+      <span>MongoDB</span><span class="dot">&bull;</span>
+      <span>Docker</span><span class="dot">&bull;</span>
+      <span>Linux</span><span class="dot">&bull;</span>
+      <span>LLM evaluation</span><span class="dot">&bull;</span>
+      <span>OWASP Top 10</span><span class="dot">&bull;</span>
+      <span>Burp Suite</span><span class="dot">&bull;</span>
+      <span>Python</span><span class="dot">&bull;</span>
+      <span>TypeScript</span><span class="dot">&bull;</span>
+      <span>C / C++</span><span class="dot">&bull;</span>
+      <span>FastAPI</span><span class="dot">&bull;</span>
+      <span>Node.js</span><span class="dot">&bull;</span>
+      <span>PostgreSQL</span><span class="dot">&bull;</span>
+      <span>MongoDB</span><span class="dot">&bull;</span>
+      <span>Docker</span><span class="dot">&bull;</span>
+      <span>Linux</span><span class="dot">&bull;</span>
+      <span>LLM evaluation</span><span class="dot">&bull;</span>
+      <span>OWASP Top 10</span><span class="dot">&bull;</span>
+      <span>Burp Suite</span><span class="dot">&bull;</span>
+    </div>
+  </div>
+  <div class="marquee__row marquee__row--big">
+    <div class="marquee__track marquee__track--rev">
+      <span>Evaluate</span><span class="dot">/</span>
+      <span>Build</span><span class="dot">/</span>
+      <span>Scale</span><span class="dot">/</span>
+      <span>Secure</span><span class="dot">/</span>
+      <span>Lead</span><span class="dot">/</span>
+      <span>Ship</span><span class="dot">/</span>
+      <span>Evaluate</span><span class="dot">/</span>
+      <span>Build</span><span class="dot">/</span>
+      <span>Scale</span><span class="dot">/</span>
+      <span>Secure</span><span class="dot">/</span>
+      <span>Lead</span><span class="dot">/</span>
+      <span>Ship</span><span class="dot">/</span>
+      <span>Evaluate</span><span class="dot">/</span>
+      <span>Build</span><span class="dot">/</span>
+      <span>Scale</span><span class="dot">/</span>
+      <span>Secure</span><span class="dot">/</span>
+      <span>Lead</span><span class="dot">/</span>
+      <span>Ship</span><span class="dot">/</span>
+      <span>Evaluate</span><span class="dot">/</span>
+      <span>Build</span><span class="dot">/</span>
+      <span>Scale</span><span class="dot">/</span>
+      <span>Secure</span><span class="dot">/</span>
+      <span>Lead</span><span class="dot">/</span>
+      <span>Ship</span><span class="dot">/</span>
+    </div>
+  </div>
+</div>
+
+<section class="section work wrap" id="work">
+  <header class="section-head reveal">
+    <div>
+      <p class="eyebrow">Selected work</p>
+      <h2>Things I've built<br>and evaluated</h2>
+    </div>
+    <p class="section-head__note">From a Discord platform with 1.8M+ users to LLM failure analysis. Keep scrolling to turn the ring.</p>
+  </header>
+
+  <!-- On desktop this is a pinned 3D ring that turns as you scroll; on phones it is a plain list. -->
+  <div class="gallery" id="gallery">
+    <div class="gallery__pin">
+      <div class="gallery__ring" id="galleryRing">
+      <div class="gallery__item" style="--i:0">
+        <article class="project reveal">
+          <div class="project__tilt tilt">
+            <a class="project__media" href="https://github.com/Aman-cve" target="_blank" rel="noopener" data-cursor="view" aria-label="Open project: Nyaru Ecosystem">
+              <!-- Live artwork (thumbs.js). To use a real screenshot instead, replace the canvas with
+                   <img src="assets/your-shot.jpg" alt="" style="width:100%;height:100%;object-fit:cover"> -->
+              <div class="project__thumb project__thumb--1"><canvas class="project__art" data-art="shards" aria-hidden="true"></canvas></div>
+              <span class="project__glare" aria-hidden="true"></span>
+              <span class="project__play">View</span>
+            </a>
+            <span class="project__num" aria-hidden="true">01</span>
+          </div>
+          <div class="project__meta">
+            <h3>Nyaru Ecosystem</h3>
+            <p>MERN &middot; Discord platform &middot; 99% uptime</p>
+            <span class="project__year">1.8M+ users</span>
+          </div>
+        </article>
+      </div>
+      <div class="gallery__item" style="--i:1">
+        <article class="project reveal">
+          <div class="project__tilt tilt">
+            <a class="project__media" href="https://github.com/Aman-cve" target="_blank" rel="noopener" data-cursor="view" aria-label="Open project: Open-source framework">
+              <!-- Live artwork (thumbs.js). To use a real screenshot instead, replace the canvas with
+                   <img src="assets/your-shot.jpg" alt="" style="width:100%;height:100%;object-fit:cover"> -->
+              <div class="project__thumb project__thumb--2"><canvas class="project__art" data-art="cubes" aria-hidden="true"></canvas></div>
+              <span class="project__glare" aria-hidden="true"></span>
+              <span class="project__play">View</span>
+            </a>
+            <span class="project__num" aria-hidden="true">02</span>
+          </div>
+          <div class="project__meta">
+            <h3>Open-source framework</h3>
+            <p>Node.js &middot; TypeScript &middot; built for Nyaru</p>
+            <span class="project__year">300+ stars</span>
+          </div>
+        </article>
+      </div>
+      <div class="gallery__item" style="--i:2">
+        <article class="project reveal">
+          <div class="project__tilt tilt">
+            <a class="project__media" href="https://github.com/Aman-cve" target="_blank" rel="noopener" data-cursor="view" aria-label="Open project: Restaurant Management System">
+              <!-- Live artwork (thumbs.js). To use a real screenshot instead, replace the canvas with
+                   <img src="assets/your-shot.jpg" alt="" style="width:100%;height:100%;object-fit:cover"> -->
+              <div class="project__thumb project__thumb--3"><canvas class="project__art" data-art="api" aria-hidden="true"></canvas></div>
+              <span class="project__glare" aria-hidden="true"></span>
+              <span class="project__play">View</span>
+            </a>
+            <span class="project__num" aria-hidden="true">03</span>
+          </div>
+          <div class="project__meta">
+            <h3>Restaurant Management System</h3>
+            <p>FastAPI &middot; Pydantic &middot; PostgreSQL &middot; Pytest</p>
+            <span class="project__year">REST API</span>
+          </div>
+        </article>
+      </div>
+      <div class="gallery__item" style="--i:3">
+        <article class="project reveal">
+          <div class="project__tilt tilt">
+            <a class="project__media" href="#about" data-cursor="read" aria-label="Open project: GDG learning dashboard">
+              <!-- Live artwork (thumbs.js). To use a real screenshot instead, replace the canvas with
+                   <img src="assets/your-shot.jpg" alt="" style="width:100%;height:100%;object-fit:cover"> -->
+              <div class="project__thumb project__thumb--4"><canvas class="project__art" data-art="bars" aria-hidden="true"></canvas></div>
+              <span class="project__glare" aria-hidden="true"></span>
+              <span class="project__play">View</span>
+            </a>
+            <span class="project__num" aria-hidden="true">04</span>
+          </div>
+          <div class="project__meta">
+            <h3>GDG learning dashboard</h3>
+            <p>Next.js &middot; TypeScript &middot; Google Developer Groups</p>
+            <span class="project__year">270+ participants</span>
+          </div>
+        </article>
+      </div>
+      <div class="gallery__item" style="--i:4">
+        <article class="project reveal">
+          <div class="project__tilt tilt">
+            <a class="project__media" href="#about" data-cursor="read" aria-label="Open project: OpenClaw">
+              <!-- Live artwork (thumbs.js). To use a real screenshot instead, replace the canvas with
+                   <img src="assets/your-shot.jpg" alt="" style="width:100%;height:100%;object-fit:cover"> -->
+              <div class="project__thumb project__thumb--5"><canvas class="project__art" data-art="eval" aria-hidden="true"></canvas></div>
+              <span class="project__glare" aria-hidden="true"></span>
+              <span class="project__play">View</span>
+            </a>
+            <span class="project__num" aria-hidden="true">05</span>
+          </div>
+          <div class="project__meta">
+            <h3>OpenClaw</h3>
+            <p>LLM failure analysis &middot; Training and evaluation data</p>
+            <span class="project__year">Outlier</span>
+          </div>
+        </article>
+      </div>
+      <div class="gallery__item" style="--i:5">
+        <article class="project reveal">
+          <div class="project__tilt tilt">
+            <a class="project__media" href="#about" data-cursor="read" aria-label="Open project: HackTheFest">
+              <!-- Live artwork (thumbs.js). To use a real screenshot instead, replace the canvas with
+                   <img src="assets/your-shot.jpg" alt="" style="width:100%;height:100%;object-fit:cover"> -->
+              <div class="project__thumb project__thumb--6"><canvas class="project__art" data-art="podium" aria-hidden="true"></canvas></div>
+              <span class="project__glare" aria-hidden="true"></span>
+              <span class="project__play">View</span>
+            </a>
+            <span class="project__num" aria-hidden="true">06</span>
+          </div>
+          <div class="project__meta">
+            <h3>HackTheFest</h3>
+            <p>Working ML build shipped under deadline</p>
+            <span class="project__year">2nd place</span>
+          </div>
+        </article>
+      </div>
+      </div>
+      <p class="gallery__hud" aria-hidden="true"><span id="galleryNow">01</span><i></i><span>06</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section services wrap" id="services">
+  <header class="section-head reveal">
+    <div>
+      <p class="eyebrow">What I do</p>
+      <h2>Models, backends<br>and scale</h2>
+      <p class="section-head__note">Where I spend my time: making models more accurate, and building the systems behind products people actually use.</p>
+    </div>
+    <!-- The 3D core parks here with the skills orbiting it -->
+    <div class="services__stage" id="skillStage" aria-hidden="true"></div>
+  </header>
+
+  <div class="services__grid reveal" id="servicesGrid">
+    <article class="service">
+      <span class="service__num" aria-hidden="true">01</span>
+      <h3>LLM evaluation</h3>
+      <p>Finding and documenting model failure cases, then producing the training and evaluation data that corrects them. 90+ LLM applications refined at Outlier.</p>
+      <ul><li>GPT-4</li><li>Claude</li><li>DeepSeek</li></ul>
+    </article>
+    <article class="service">
+      <span class="service__num" aria-hidden="true">02</span>
+      <h3>Backend &amp; APIs</h3>
+      <p>REST services with FastAPI, Pydantic and PostgreSQL, using DTOs, an ORM and Pytest suites to keep behaviour consistent as features land.</p>
+      <ul><li>FastAPI</li><li>PostgreSQL</li><li>Pytest</li></ul>
+    </article>
+    <article class="service">
+      <span class="service__num" aria-hidden="true">03</span>
+      <h3>Systems at scale</h3>
+      <p>Dynamic horizontal sharding for thousands of concurrent WebSocket connections, average API latency under 100ms and 99% uptime on Linux.</p>
+      <ul><li>Sharding</li><li>WebSockets</li><li>Docker</li></ul>
+    </article>
+    <article class="service">
+      <span class="service__num" aria-hidden="true">04</span>
+      <h3>Security</h3>
+      <p>Security fundamentals from the Google Cybersecurity certificate: the OWASP Top 10, traffic analysis and SIEM, with Burp Suite, Nmap, Wireshark and Splunk.</p>
+      <ul><li>OWASP</li><li>Burp Suite</li><li>Splunk</li></ul>
+    </article>
+  </div>
+</section>
+
+<section class="section about wrap" id="about">
+  <div class="about__grid">
+    <figure class="about__photo reveal tilt">
+      <!-- Replace with your photo:
+           <img src="assets/about.jpg" alt="Aman" width="800" height="1000"> -->
+      <span>Your photo<br><small>4:5, any background</small></span>
+    </figure>
+    <div class="about__text reveal">
+      <p class="eyebrow">About</p>
+      <h2>Student, builder,<br>evaluator.</h2>
+      <p class="lede">I'm a Computer Science undergraduate at Chandigarh University (CGPA 8.99, graduating May 2027). In 2026 I worked on LLM quality and evaluation at Outlier across GPT-4, Claude and DeepSeek projects, and led the Google Developer Groups chapter on campus.</p>
+      <p>I also founded Nyaru, a Discord platform that grew to 1.8M+ users across 5,000+ servers. I like problems where correctness and scale both matter: 950+ LeetCode problems solved and top 1% of my university cohort. Based in Delhi, India, and open to roles anywhere.</p>
+
+      <h3 class="about__sub">Experience</h3>
+      <ul class="timeline">
+        <li><span>Apr &ndash; Oct 2026</span><strong>LLM Quality &amp; Evaluation (QMA), Outlier</strong><em>90+ LLM applications refined &middot; OpenClaw failure analysis &middot; Remote</em></li>
+        <li><span>Aug 2025 &ndash; Jul 2026</span><strong>Lead Organizer, Google Developer Groups</strong><em>250+ students, 300+ teams, 1,500+ participants &middot; Top 20 national rank</em></li>
+        <li><span>Exp. May 2027</span><strong>B.E. Computer Science, Chandigarh University</strong><em>CGPA 8.99 / 10 &middot; DSA, Operating Systems, DBMS, Computer Networks</em></li>
+      </ul>
+
+      <h3 class="about__sub">Recognition</h3>
+      <ul class="timeline">
+        <li><span>Olympiad</span><strong>22nd international, 2nd national rank</strong><em>International Informatics Olympiad (SOF)</em></li>
+        <li><span>Certified</span><strong>Google Cloud Professional Cloud Architect</strong><em>2026 &middot; plus the Google Cybersecurity Professional Certificate</em></li>
+        <li><span>Hackathon</span><strong>2nd place, HackTheFest</strong><em>Shipped a working ML build under deadline</em></li>
+        <li><span>Top 1%</span><strong>Top 50 of 6,000+ students</strong><em>University academic cohort &middot; 950+ LeetCode problems</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow reveal">Contact</p>
+    <h2 class="contact__big reveal">LET'S BUILD<br><em>SOMETHING.</em></h2>
+    <div class="contact__row reveal">
+      <div>
+        <p class="contact__lead">Open to LLM evaluation, backend and software engineering roles and internships. Send a brief or just say hi.</p>
+        <div class="contact__email">
+          <span id="emailText">atongoyal@gmail.com</span>
+          <button type="button" id="copyEmail" data-cursor="copy">Copy</button>
+        </div>
+      </div>
+      <ul class="socials">
+        <li><a href="https://linkedin.com/in/aman-cve-7773631a6" target="_blank" rel="noopener" data-cursor="open">LinkedIn</a></li>
+        <li><a href="https://github.com/Aman-cve" target="_blank" rel="noopener" data-cursor="open">GitHub</a></li>
+        <li><a href="mailto:atongoyal@gmail.com" data-cursor="mail">Email</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer wrap">
+  <span>&copy; <span id="year">2026</span> AmanCve</span>
+  <span>Delhi, India</span>
+  <a href="#top">Back to top</a>
+</footer>
+
+<script src="script.js" defer></script>
+<script src="thumbs.js" defer></script>
+<script src="scene.js" defer></script>
+</body>
+</html>
